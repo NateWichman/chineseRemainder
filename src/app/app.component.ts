@@ -1,21 +1,19 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = "chineseRemainderTheorem";
-
+  errorMessages: string[] = [];
   congruencies: { value: number; modulus: number }[] = [];
-  calculation: { result: number, modulus: number} | boolean;
-  values = [2, 3, 2];
-  moduli = [3, 5, 7];
+  calculation: { result: number; modulus: number } | boolean;
 
   ngOnInit() {
     this.congruencies.push({ value: null, modulus: null });
-    console.log(this.chineseRemainderTheorem(this.values, this.moduli));
+    console.log(this.gcd_more_than_two_numbers([4, 7, 5, 12]));
   }
 
   /* Author: Nathan Wichman, Date: 8/10/2019. This function solves the 
@@ -25,9 +23,22 @@ export class AppComponent implements OnInit {
   the Chniese Remainder theorem hasd infinite answers. 'result' will be 
   the smallest correct answer. */
   chineseRemainderTheorem(values, moduli) {
-    if (this.gcd_more_than_two_numbers(moduli) !== 1) {
-      return false;
+    console.log("ran");
+    let valid = true;
+    for (let i = 0; i < moduli.length; i++) {
+      for (let j = i; j < moduli.length; j++) {
+        if (moduli[i] !== moduli[j]) {
+          if (this.gcd_two_numbers(moduli[i], moduli[j]) !== 1) {
+            console.log("RAN");
+            this.errorMessages.push(
+              `the GCD between ${moduli[i]} and ${moduli[j]} is not 1`
+            );
+            return false;
+          }
+        }
+      }
     }
+
     let result = 0;
     for (let i = 0; i < values.length; i++) {
       let N = [...moduli];
@@ -41,14 +52,35 @@ export class AppComponent implements OnInit {
       (accumulator, currentValue) => currentValue * accumulator
     );
     result = result % multipliedModuli;
+    this.errorMessages = [];
     return { result, modulus: multipliedModuli };
   }
 
   calculate() {
+    this.errorMessages = [];
     const values = this.congruencies.map(c => c.value);
     const moduli = this.congruencies.map(c => c.modulus);
-    this.calculation = this.chineseRemainderTheorem(values, moduli);
-    console.log(this.calculation);
+    console.log("start");
+    let isValid = true;
+    values.forEach((v, i) => {
+      console.log(v);
+      if (v === null) {
+        this.errorMessages.push("empty value at line " + i);
+        isValid = false;
+      }
+    });
+    moduli.forEach((m, i) => {
+      if (m === null) {
+        this.errorMessages.push("empty moduli at line " + i);
+        isValid = false;
+      }
+    });
+
+    if (!isValid) {
+      this.calculation = false;
+    } else {
+      this.calculation = this.chineseRemainderTheorem(values, moduli);
+    }
   }
 
   // Adds another input line to the DOM

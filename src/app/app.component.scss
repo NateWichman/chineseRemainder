@@ -1,0 +1,60 @@
+$primary: #673ab7;
+$warn: #f44336;
+
+.input-field {
+  width: 75px;
+  margin-left: 10px;
+}
+
+.center-h {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  min-width: 500px;
+}
+.spacing {
+  margin-top: 25px;
+}
+mat-card {
+  width: 500px;
+}
+
+.row {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.plus-button-margin {
+  margin-left: 220px;
+}
+
+.left-pad {
+  margin-left: 25px;
+}
+
+.footer-style{
+    margin-bottom: 25px;
+}
+
+
+.calculation-style {
+    margin-top: 25px;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: $primary;
+}
+
+.error {
+    color: $warn;
+    margin-top: 25px;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    font-weight: bold;
+}

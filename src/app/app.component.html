@@ -1,3 +1,4 @@
+<div class="spacing"></div>
 <div class="center-h">
   <div>
     <mat-card>
@@ -10,6 +11,7 @@
           <mat-form-field class="input-field">
             <input
               matInput
+              [required]
               [(ngModel)]="c.value"
               type="number"
               placeholder="value"
@@ -55,20 +57,25 @@
           Calculate
         </button>
       </mat-card-actions>
-    </mat-card>
-    <mat-card>
-      <mat-card-header>Result</mat-card-header>
-      <mat-card-content>
-        <div *ngFor="let c of congruencies">
-          <span *ngIf="c.value && c.modulus"
-            >{{ c.value }} mod {{ c.modulus }}</span
-          >
-        </div>
-        <div *ngIf="calculation">
-          Congruent to {{ calculation.result }} mod {{ calculation.modulus }}
-        </div>
-        <div *ngIf="calculation === false">No answer posible</div>
-      </mat-card-content>
+      <mat-card-footer class="footer-style">
+          <mat-list *ngIf="congruencies">
+            <mat-divider></mat-divider>
+            <div *ngFor="let c of congruencies">
+              <mat-list-item *ngIf="c.value && c.modulus">
+                &equiv; {{ c.value }} mod {{ c.modulus }}</mat-list-item
+              >
+              <mat-divider></mat-divider>
+            </div>
+          </mat-list>
+          <div *ngIf="calculation" class="calculation-style">
+            &equiv; {{ calculation.result }} mod {{ calculation.modulus }}
+          </div>
+          <div *ngIf="calculation === false">
+            <div *ngFor="let error of errorMessages" class="error">
+              {{ error }}
+            </div>
+          </div>
+      </mat-card-footer>
     </mat-card>
   </div>
 </div>
