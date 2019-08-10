@@ -1,1 +1,31 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.input-field{
+    width: 75px;
+    margin-left: 10px;
+}
+
+.center-h {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    min-width: 500px;
+}
+
+mat-card {
+    width: 500px;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.plus-button-margin {
+    margin-left: 220px;
+}
+
+.left-pad {
+    margin-left: 25px;
+}

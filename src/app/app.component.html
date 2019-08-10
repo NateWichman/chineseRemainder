@@ -1,18 +1,74 @@
-<div>
-  <div *ngFor="let c of congruencies" >
-      <input [(ngModel)]="c.value" type="number" placeholder="value"
-      (keyup.enter)="addCongruency()">
-      <input [(ngModel)]="c.modulus" type="number" placeholder="modulus"
-      (keyup.enter)="addCongruency()">
-      <button (click)="removeCongruency(c)">Remove</button>
+<div class="center-h">
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Chinese Remainder</mat-card-title>
+        <mat-card-subtitle>Nathan Wichman 8/10/2019</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let c of congruencies" class="row">
+          <mat-form-field class="input-field">
+            <input
+              matInput
+              [(ngModel)]="c.value"
+              type="number"
+              placeholder="value"
+              (keyup.enter)="addCongruency()"
+            />
+          </mat-form-field>
+          <mat-form-field class="input-field">
+            <input
+              matInput
+              [(ngModel)]="c.modulus"
+              type="number"
+              placeholder="modulus"
+              (keyup.enter)="addCongruency()"
+            />
+          </mat-form-field>
+          <button mat-icon-button (click)="removeCongruency(c)">
+            <mat-icon color="accent">remove_circle</mat-icon>
+          </button>
+          <button
+            *ngIf="congruencies.indexOf(c) === congruencies.length - 1"
+            mat-icon-button
+            (click)="addCongruency()"
+          >
+            <mat-icon color="primary">add_circle</mat-icon>
+          </button>
+        </div>
+        <button
+          *ngIf="!congruencies.length"
+          mat-icon-button
+          (click)="addCongruency()"
+          class="plus-button-margin"
+        >
+          <mat-icon color="primary">add_circle</mat-icon>
+        </button>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="calculate()"
+          class="left-pad"
+        >
+          Calculate
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>Result</mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let c of congruencies">
+          <span *ngIf="c.value && c.modulus"
+            >{{ c.value }} mod {{ c.modulus }}</span
+          >
+        </div>
+        <div *ngIf="calculation">
+          Congruent to {{ calculation.result }} mod {{ calculation.modulus }}
+        </div>
+        <div *ngIf="calculation === false">No answer posible</div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <button (click)="addCongruency()">Add</button>
-  <hr>
-  <button (click)="calculate()">Calculate</button>
-  <div *ngFor="let c of congruencies">
-    <span *ngIf="c.value && c.modulus">{{ c.value }} mod {{ c.modulus }}</span>
-  </div>
-  <hr>
-  <div *ngIf="calculation">Congruent to {{ calculation.result }} mod {{ calculation.modulus }}</div>
-  <div *ngIf="calculation === false">No answer posible</div>
 </div>
