@@ -50,6 +50,15 @@ mat-card {
     color: $primary;
 }
 
+.s {
+  display: flex;
+  flex: 1;
+  font-weight: bold;
+  justify-content: center;
+  font-size: 25px;
+  color: $primary;
+}
+
 .error {
     color: $warn;
     margin-top: 25px;

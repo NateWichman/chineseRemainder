@@ -62,13 +62,17 @@
             <mat-divider></mat-divider>
             <div *ngFor="let c of congruencies">
               <mat-list-item *ngIf="c.value && c.modulus">
-                &equiv; {{ c.value }} mod {{ c.modulus }}</mat-list-item
+                X &equiv; {{ c.value }} mod {{ c.modulus }}</mat-list-item
               >
               <mat-divider></mat-divider>
             </div>
           </mat-list>
-          <div *ngIf="calculation" class="calculation-style">
-            &equiv; {{ calculation.result }} mod {{ calculation.modulus }}
+          <div *ngIf="calculation">
+            <span class="calculation-style">
+           X = {{ calculation.result }} + K({{ calculation.modulus }})
+            </span>
+            <br>
+            <span class="s">where K is some integer</span>
           </div>
           <div *ngIf="calculation === false">
             <div *ngFor="let error of errorMessages" class="error">
